@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.mathgame.app-mergeDebugResources-37:/layout/item_score.xml",
+        "source": "com.mathgame.app-main-40:/layout/item_score.xml"
+    },
+    {
+        "merged": "com.mathgame.app-mergeDebugResources-37:/layout/activity_leaderboard.xml",
+        "source": "com.mathgame.app-main-40:/layout/activity_leaderboard.xml"
+    },
+    {
+        "merged": "com.mathgame.app-mergeDebugResources-37:/layout/activity_main.xml",
+        "source": "com.mathgame.app-main-40:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.mathgame.app-mergeDebugResources-37:/layout/activity_game.xml",
+        "source": "com.mathgame.app-main-40:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.mathgame.app-mergeDebugResources-37:/layout/loading_overlay.xml",
+        "source": "com.mathgame.app-main-40:/layout/loading_overlay.xml"
+    },
+    {
+        "merged": "com.mathgame.app-mergeDebugResources-37:/layout/activity_result.xml",
+        "source": "com.mathgame.app-main-40:/layout/activity_result.xml"
+    }
+]

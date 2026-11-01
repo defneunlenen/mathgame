@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors -->
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Text colors -->
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_on_gradient">#E0E0E0</color>
+
+    <!-- Operation button colors -->
+    <color name="op_add">#FF4CAF50</color>       <!-- Yeşil -->
+    <color name="op_sub">#FF2196F3</color>       <!-- Mavi -->
+    <color name="op_mul">#FF9C27B0</color>       <!-- Pembe -->
+    <color name="op_div">#FFFF9800</color>       <!-- Turuncu -->
+    <color name="op_round">#FF009688</color>     <!-- Teal -->
+    <color name="op_mix">#FFE91E63</color>       <!-- Kırmızı-pembe -->
+
+    <!-- Answer button gradients -->
+    <color name="answer1">#FF66BB6A</color>
+    <color name="answer2">#FF42A5F5</color>
+    <color name="answer3">#FFAB47BC</color>
+    <color name="answer4">#FFFFA726</color>
+
+    <!-- Feedback colors -->
+    <color name="correct">#4CAF50</color>
+    <color name="wrong">#F44336</color>
+
+    <!-- Result screen colors -->
+    <color name="result_green">#664CAF50</color>
+    <color name="result_yellow">#66FFC107</color>
+    <color name="result_blue">#662196F3</color>
+
+    <!-- Confetti colors -->
+    <color name="confetti1">#FF5252</color>
+    <color name="confetti2">#FF40C4FF</color>
+    <color name="confetti3">#FF69F0AE</color>
+    <color name="confetti4">#FFFFD740</color>
+    <color name="confetti5">#FFEA80FC</color>
+</resources>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gameRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_game_gradient"
+    android:padding="24dp">
+
+    <!-- Top bar -->
+    <TextView
+        android:id="@+id/tvQuestionCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 / 10"
+        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Timer -->
+    <TextView
+        android:id="@+id/tvTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="⏱️ 30"
+        android:textSize="22sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:shadowColor="#40000000"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        app:layout_constraintTop_toTopOf="@id/tvQuestionCounter"
+        app:layout_constraintBottom_toBottomOf="@id/tvQuestionCounter"
+        app:layout_constraintStart_toEndOf="@id/tvQuestionCounter"
+        app:layout_constraintEnd_toStartOf="@id/btnLeaderboard"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp" />
+
+    <ImageButton
+        android:id="@+id/btnLeaderboard"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/circle_white_20"
+        android:contentDescription="Puan Tablosu"
+        android:elevation="4dp"
+        android:src="@android:drawable/ic_menu_info_details"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="12dp"
+        android:layout_marginTop="8dp"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/progress_gradient"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestionCounter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Question type badge -->
+    <TextView
+        android:id="@+id/tvQuestionType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Toplama"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="8dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/badge_green"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Question text — center area -->
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/question_default"
+        android:textSize="56sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:shadowColor="#40000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="6"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestionType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/answersGrid"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Feedback -->
+    <TextView
+        android:id="@+id/tvFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feedback_correct"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/answersGrid"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <!-- Answer buttons 2x2 grid -->
+    <LinearLayout
+        android:id="@+id/answersGrid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0.3">
+
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <FrameLayout
+                android:id="@+id/btnAnswer1"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/btn_answer_blue"
+                android:elevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:id="@+id/tvAnswer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:shadowColor="#40000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnAnswer2"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/btn_answer_purple"
+                android:elevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:id="@+id/tvAnswer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:shadowColor="#40000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <FrameLayout
+                android:id="@+id/btnAnswer3"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/btn_answer_orange"
+                android:elevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:id="@+id/tvAnswer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:shadowColor="#40000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/btnAnswer4"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
+                android:background="@drawable/btn_answer_green"
+                android:elevation="4dp"
+                android:clickable="true"
+                android:focusable="true">
+                <TextView
+                    android:id="@+id/tvAnswer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    android:shadowColor="#40000000"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="2" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+    <!-- Loading overlay — shown during game-to-result transition -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#80000000"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@android:color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/please_wait"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

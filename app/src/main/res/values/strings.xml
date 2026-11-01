@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Defne Matematik</string>
+    <string name="question_default">5 + 3 = ?</string>
+    <string name="feedback_correct">&#x1F31F; Harika!</string>
+    <string name="feedback_wrong">&#x1F60A; Bir dahakine!</string>
+    <string name="please_wait">&#x1F3AF; Lütfen bekleyiniz…</string>
+</resources>

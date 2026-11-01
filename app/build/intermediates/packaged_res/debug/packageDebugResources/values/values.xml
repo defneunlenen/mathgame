@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="answer1">#FF66BB6A</color>
+    <color name="answer2">#FF42A5F5</color>
+    <color name="answer3">#FFAB47BC</color>
+    <color name="answer4">#FFFFA726</color>
+    <color name="black">#FF000000</color>
+    <color name="confetti1">#FF5252</color>
+    <color name="confetti2">#FF40C4FF</color>
+    <color name="confetti3">#FF69F0AE</color>
+    <color name="confetti4">#FFFFD740</color>
+    <color name="confetti5">#FFEA80FC</color>
+    <color name="correct">#4CAF50</color>
+    <color name="op_add">#FF4CAF50</color>
+    <color name="op_div">#FFFF9800</color>
+    <color name="op_mix">#FFE91E63</color>
+    <color name="op_mul">#FF9C27B0</color>
+    <color name="op_round">#FF009688</color>
+    <color name="op_sub">#FF2196F3</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="result_blue">#662196F3</color>
+    <color name="result_green">#664CAF50</color>
+    <color name="result_yellow">#66FFC107</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="text_on_gradient">#E0E0E0</color>
+    <color name="text_primary">#333333</color>
+    <color name="text_secondary">#666666</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="wrong">#F44336</color>
+    <string name="app_name">Defne Matematik</string>
+    <string name="feedback_correct">🌟 Harika!</string>
+    <string name="feedback_wrong">😊 Bir dahakine!</string>
+    <string name="please_wait">🎯 Lütfen bekleyiniz…</string>
+    <string name="question_default">5 + 3 = ?</string>
+    <style name="OpButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="cornerRadius">24dp</item>
+        <item name="android:elevation">6dp</item>
+    </style>
+    <style name="Theme.MathGame" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="android:statusBarColor">@color/purple_700</item>
+        <item name="android:navigationBarColor">@color/purple_700</item>
+        <item name="android:windowLightStatusBar" ns1:targetApi="m">false</item>
+    </style>
+    <style name="ToolbarTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>
