@@ -446,10 +446,16 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
+    // Marker to detect "intentional" finish (by us) vs system-triggered pause
+    private var isFinishingIntentionally = false
+
     override fun onPause() {
         super.onPause()
-        stopTimer()
-        handler.removeCallbacksAndMessages(null)
+        // Only clean up if NOT intentionally finishing — preserves scheduleNext() callback
+        if (!isFinishingIntentionally) {
+            stopTimer()
+            handler.removeCallbacksAndMessages(null)
+        }
     }
 
     override fun onDestroy() {
