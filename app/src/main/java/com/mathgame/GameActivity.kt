@@ -33,6 +33,7 @@ class GameActivity : AppCompatActivity() {
 
     // Track all confetti views for cleanup — prevents view accumulation ANR
     private val confettiViews = mutableListOf<View>()
+    private var scheduledNextRunnable: Runnable? = null
 
     // Sound effects
     private var soundPool: SoundPool? = null
@@ -217,18 +218,29 @@ class GameActivity : AppCompatActivity() {
         scheduleNext()
     }
 
+    // Marker to detect intentional finish (finishGame) vs system-triggered pause (screen dimming, etc.)
+    private var isFinishingIntentionally = false
+
     private fun scheduleNext() {
         stopTimer()
-        handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({
-            if (isFinishing || isDestroyed) return@postDelayed
-            if (currentIndex + 1 >= game.questions.size) {
-                finishGame()
-            } else {
-                currentIndex++
-                showQuestion()
+        // Only remove scheduled next callbacks, keep confetti cleanup alive
+        val nextRunnable = scheduledNextRunnable
+        if (nextRunnable != null) {
+            handler.removeCallbacks(nextRunnable)
+        }
+        val runnable: Runnable = object : Runnable {
+            override fun run() {
+                if (isFinishing || isDestroyed) return
+                if (currentIndex + 1 >= game.questions.size) {
+                    finishGame()
+                } else {
+                    currentIndex++
+                    showQuestion()
+                }
             }
-        }, 1500)
+        }
+        scheduledNextRunnable = runnable
+        handler.postDelayed(runnable, 1500)
     }
 
     private fun startTimer() {
@@ -304,9 +316,9 @@ class GameActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.confetti5)
         )
 
-        // Cap active confetti at 30 to prevent view inflation lag (was unbounded per question)
+        // Cap active confetti at maxActive to prevent view inflation lag (was unbounded per question)
         val maxActive = 30
-        val toRemove = confettiViews.size.coerceIn(0, confettiViews.size - maxActive + 20)
+        val toRemove = (confettiViews.size + 20 - maxActive).coerceAtLeast(0)
         if (toRemove > 0) {
             for (i in 0 until toRemove) {
                 confettiViews[i].animate().cancel()
@@ -365,14 +377,20 @@ class GameActivity : AppCompatActivity() {
     }
 
     private fun finishGame() {
-        // Prevent re-entry — user taps fast or timer fires again
+        // Prevent re-entry
         if (isFinishing || isDestroyed) return
 
         // Stop all running animations immediately
         stopTimer()
-        handler.removeCallbacksAndMessages(null)
 
-        // Cancel & remove all confetti views — prevents ANR from stale callbacks
+        // Cancel scheduled next question
+        val nextRunnable = scheduledNextRunnable
+        if (nextRunnable != null) {
+            handler.removeCallbacks(nextRunnable)
+            scheduledNextRunnable = null
+        }
+
+        // Cancel & remove all confetti views
         for (dot in confettiViews) {
             dot.animate().cancel()
             try { (dot.parent as? ViewGroup)?.removeView(dot) } catch (_: Exception) {}
@@ -382,18 +400,19 @@ class GameActivity : AppCompatActivity() {
         // Show loading overlay so user knows something is happening
         binding.loadingOverlay.visibility = View.VISIBLE
 
-        // Defer the actual finish to let the overlay render
-        handler.post {
-            saveScoreSync()
-            val intent = android.content.Intent(this, ResultActivity::class.java).apply {
-                putExtra("correctCount", correctCount)
-                putExtra("totalQuestions", game.questions.size)
-                putExtra("operation", operation)
-            }
-            startActivity(intent)
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            finish()
+        // Mark as intentionally finishing so onPause doesn't cancel our callbacks
+        isFinishingIntentionally = true
+
+        // Transition to result screen
+        val intent = android.content.Intent(this, ResultActivity::class.java).apply {
+            putExtra("correctCount", correctCount)
+            putExtra("totalQuestions", game.questions.size)
+            putExtra("operation", operation)
         }
+        startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        saveScoreSync()
+        finish()
     }
 
     private fun saveScoreSync() {
@@ -446,29 +465,37 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    // Marker to detect "intentional" finish (by us) vs system-triggered pause
-    private var isFinishingIntentionally = false
-
     override fun onPause() {
         super.onPause()
-        // Only clean up if NOT intentionally finishing — preserves scheduleNext() callback
+        // Don't cancel everything — only the timer and scheduled next callback
+        // This prevents accidental cancellation of pending callbacks when screen dims, etc.
         if (!isFinishingIntentionally) {
             stopTimer()
-            handler.removeCallbacksAndMessages(null)
+            val nextRunnable = scheduledNextRunnable
+            if (nextRunnable != null) {
+                handler.removeCallbacks(nextRunnable)
+                scheduledNextRunnable = null
+            }
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         stopTimer()
-        handler.removeCallbacksAndMessages(null)
+        // Remove scheduled next question callback
+        val nextRunnable = scheduledNextRunnable
+        if (nextRunnable != null) {
+            handler.removeCallbacks(nextRunnable)
+            scheduledNextRunnable = null
+        }
         // Cancel & remove any residual confetti views
         for (dot in confettiViews) {
             dot.animate().cancel()
             try { (dot.parent as? ViewGroup)?.removeView(dot) } catch (_: Exception) {}
         }
         confettiViews.clear()
-        try { db.close() } catch (e: Exception) {}
-        soundPool?.release()
+        // Free resources
+        try { soundPool?.release() } catch (_: Exception) {}
+        try { db.close() } catch (_: Exception) {}
     }
 }
